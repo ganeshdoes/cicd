@@ -1,0 +1,25 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage['PLAN1'] {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ganeshdoes/cicd.git']]) 
+            }
+        }}
+        stage ['PLAN2']
+        steps {
+            sh ['terraform init']
+        }
+        stage ['PLAN3']
+        steps {
+            sh ['terraform validate']
+        }
+        stage ['PLAN4']
+        steps {
+            sh ['terraform plan']
+        }
+        stage ['PLAN5']
+        steps {
+            sh ['terraform apply --auto-approve']
+}}
